@@ -36,7 +36,7 @@ module Linearly
 
         it { expect(result).not_to be_successful }
         it { expect(result.error).to be_a NoMethodError }
-      end # context 'with incorrect input'
+      end # context 'with missing input'
     end # describe 'implementation'
   end # describe Step::Static
 end # module Linearly
