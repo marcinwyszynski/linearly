@@ -11,11 +11,5 @@ module Linearly
     def call
       succeed(string: (number + 1).to_s)
     end
-
-    class Failing < StaticStep
-      def call
-        raise 'Boom!'
-      end
-    end # class Failing
   end # class StaticStep
 end # module Linearly
