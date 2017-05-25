@@ -6,7 +6,7 @@ module Linearly
     # one step.
     # @api private
     module Reducer
-      # Keep calling steps as long as the state is successful.
+      # Keep calling steps as long as the state is successful
       #
       # This method reeks of :reek:TooManyStatements and :reek:FeatureEnvy.
       #

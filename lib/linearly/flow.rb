@@ -65,7 +65,7 @@ module Linearly
     def steps
       [
         Validation::Inputs.new(inputs),
-        *steps.map(&Runner.method(:new)),
+        *@steps.map(&Runner.method(:new)),
         Validation::Outputs.new(outputs),
       ]
     end
