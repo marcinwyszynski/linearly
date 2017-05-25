@@ -5,7 +5,7 @@ require 'pry'
 
 if ENV['CI'] == 'true'
   require 'simplecov'
-  SimpleCov.start
+  SimpleCov.start { add_filter '/spec/' }
 
   require 'codecov'
   SimpleCov.formatter = SimpleCov::Formatter::Codecov
