@@ -1,7 +1,18 @@
 require 'singleton'
 
 module Linearly
+  # {Validation} provides a way to check inputs and outputs against a set of
+  # per-field expectations.
+  # @abstract
   class Validation
+    # Constructor for a {Validation}
+    #
+    # @param expectations [Hash<Symbol, Expectation>] a hash of per-field
+    #        expectations. An expectation can be +true+ (just checking for field
+    #        presence), a class name (checking for value type) or a +Proc+
+    #        taking a value and returning a +Boolean+.
+    #
+    # @api private
     def initialize(expectations)
       @expectations =
         expectations
@@ -99,6 +110,5 @@ module Linearly
       end
       module_function :to_proc
     end # module Expectation
-    private_constant :Expectation
   end # class Validation
 end # module Linearly
