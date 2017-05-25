@@ -1,5 +1,6 @@
 require 'linearly/mixins/reducer'
 require 'linearly/errors/broken_contract'
+require 'linearly/errors/state_not_returned'
 require 'linearly/flow'
 require 'linearly/runner'
 require 'linearly/step/static'

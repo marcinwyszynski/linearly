@@ -2,11 +2,12 @@ require 'spec_helper'
 
 module Linearly
   describe Flow do
+    let(:step1_proc) { ->(state) { state.succeed(new_key: :new_val) } }
     let(:step1) do
       TestStep.new(
         { key: String },
         { new_key: Symbol },
-        ->(state) { state.succeed(new_key: :new_val) },
+        step1_proc,
       )
     end
     let(:step2) do
@@ -37,12 +38,26 @@ module Linearly
       let(:state) { Statefully::State.create(**args) }
       let(:result) { flow.call(state) }
 
-      context 'when all good' do
+      context 'with correct input' do
         let(:args) { { key: 'val', other: 7 } }
 
         it { expect(result).to be_successful }
         it { expect(result.history.length).to eq 3 }
-      end # context 'when all good'
+
+        context 'with a throwing step' do
+          let(:step1_proc) { ->(_) { raise 'Boom!' } }
+
+          it { expect(result).not_to be_successful }
+          it { expect(result.error).to be_a RuntimeError }
+        end # context 'with a throwing step'
+
+        context 'with a step not returning State' do
+          let(:step1_proc) { ->(_) { 'surprise!' } }
+
+          it { expect(result).not_to be_successful }
+          it { expect(result.error).to be_a Errors::StateNotReturned }
+        end # context 'with a step not returning State'
+      end # context 'with correct input'
 
       context 'with missing initial state' do
         let(:args) { { key: 'val' } }

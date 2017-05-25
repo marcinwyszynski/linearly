@@ -39,6 +39,14 @@ module Linearly
         state.fail(err)
       end
 
+      # User-defined logic for this +Step+
+      #
+      # @return [Statefully::State]
+      # @api private
+      def call
+        raise NotImplementedError
+      end
+
       # Inputs for a step
       #
       # @return [Hash<Symbol, Expectation>]
@@ -77,14 +85,6 @@ module Linearly
         @state = state
       end
       private_class_method :new
-
-      # User-defined logic for this +Step+
-      #
-      # @return [Statefully::State]
-      # @api private
-      def call
-        raise NotImplementedError
-      end
 
       # Dynamically pass unknown messages to the wrapped +State+
       #
