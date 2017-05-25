@@ -13,8 +13,8 @@ steps:
     commands:
       - bundle exec rspec
 
-  deploy_to_rubygems:
-    title: 'Deploy the gem to Rubygems'
-    image: ${{build_image}}
-    commands:
-      - ./deploy.sh
+  # deploy_to_rubygems:
+  #   title: 'Deploy the gem to Rubygems'
+  #   image: ${{build_image}}
+  #   commands:
+  #     - ./deploy.sh
