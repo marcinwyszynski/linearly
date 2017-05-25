@@ -89,15 +89,19 @@ module Linearly
     end # shared_examples 'supports_proc_expectation'
 
     describe Validation::Inputs do
-      it_behaves_like 'supports_presence_expectation', Errors::BrokenContract::Inputs
-      it_behaves_like 'supports_class_expectation', Errors::BrokenContract::Inputs
-      it_behaves_like 'supports_proc_expectation', Errors::BrokenContract::Inputs
+      error = Errors::BrokenContract::Inputs
+
+      it_behaves_like 'supports_presence_expectation', error
+      it_behaves_like 'supports_class_expectation', error
+      it_behaves_like 'supports_proc_expectation', error
     end # describe Validation::Inputs
 
     describe Validation::Outputs do
-      it_behaves_like 'supports_presence_expectation', Errors::BrokenContract::Outputs
-      it_behaves_like 'supports_class_expectation', Errors::BrokenContract::Outputs
-      it_behaves_like 'supports_proc_expectation', Errors::BrokenContract::Outputs
+      error = Errors::BrokenContract::Outputs
+
+      it_behaves_like 'supports_presence_expectation', error
+      it_behaves_like 'supports_class_expectation', error
+      it_behaves_like 'supports_proc_expectation', error
     end # describe Validation::Outputs
   end # describe Validation
 end # module Linearly
