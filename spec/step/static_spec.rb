@@ -2,22 +2,34 @@ require 'spec_helper'
 
 module Linearly
   describe Step::Static do
-    let(:flow)   { Flow.new(StaticStep) }
-    let(:state)  { Statefully::State.create(**args) }
-    let(:result) { flow.call(state) }
+    let(:args)  { {} }
+    let(:state) { Statefully::State.create(**args) }
 
-    context 'with correct input' do
-      let(:args) { { number: 7 } }
+    it { expect { described_class.inputs }.to raise_error NotImplementedError }
+    it { expect { described_class.outputs }.to raise_error NotImplementedError }
 
-      it { expect(result).to be_successful }
-      it { expect(result.string).to eq '8' }
-    end # context 'with correct input'
+    context 'with result' do
+      let(:result) { described_class.call(state) }
 
-    context 'with incorrect input' do
-      let(:args) { { number: '7' } }
+      it { expect { result }.to raise_error NotImplementedError }
+    end # context 'with result'
 
-      it { expect(result).not_to be_successful }
-      it { expect(result.error).to be_a Errors::BrokenContract::Inputs }
-    end # context 'with incorrect input'
+    describe 'implementation' do
+      let(:result) { StaticStep.call(state) }
+
+      context 'with correct input' do
+        let(:args) { { number: 7 } }
+
+        it { expect(result).to be_successful }
+        it { expect(result.string).to eq '8' }
+      end # context 'with correct input'
+
+      context 'with incorrect input' do
+        let(:args) { { number: '7' } }
+
+        it { expect(result).not_to be_successful }
+        it { expect(result.error).to be_a TypeError }
+      end # context 'with incorrect input'
+    end # describe 'implementation'
   end # describe Step::Static
 end # module Linearly
