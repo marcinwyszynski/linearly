@@ -4,14 +4,14 @@ module Linearly
   describe Flow do
     let(:step1) do
       TestStep.new(
-        { key: true },
-        { new_key: true },
-        ->(state) { state.succeed(new_key: 'new_val') },
+        { key: String },
+        { new_key: Symbol },
+        ->(state) { state.succeed(new_key: :new_val) },
       )
     end
     let(:step2) do
       TestStep.new(
-        { other: true },
+        { other: Numeric },
         {},
         ->(state) { state.succeed },
       )
@@ -22,15 +22,15 @@ module Linearly
       let(:inputs) { flow.inputs }
 
       it { expect(inputs.length).to eq 2 }
-      it { expect(inputs).to have_key(:key) }
-      it { expect(inputs).to have_key(:other) }
+      it { expect(inputs.fetch(:key)).to eq String }
+      it { expect(inputs.fetch(:other)).to eq Numeric }
     end # describe '#inputs'
 
     describe '#outputs' do
       let(:outputs) { flow.outputs }
 
       it { expect(outputs.length).to eq 1 }
-      it { expect(outputs).to have_key(:new_key) }
+      it { expect(outputs.fetch(:new_key)).to eq Symbol }
     end # describe '#outputs'
 
     describe '#call' do
@@ -38,7 +38,7 @@ module Linearly
       let(:result) { flow.call(state) }
 
       context 'when all good' do
-        let(:args) { { key: 'val', other: 'other_val' } }
+        let(:args) { { key: 'val', other: 7 } }
 
         it { expect(result).to be_successful }
         it { expect(result.history.length).to eq 3 }

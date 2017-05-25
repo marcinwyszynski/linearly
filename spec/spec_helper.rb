@@ -12,4 +12,6 @@ if ENV['CI'] == 'true'
 end
 
 require 'linearly'
+
+require 'static_step'
 require 'test_step'
