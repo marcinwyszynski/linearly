@@ -73,6 +73,20 @@ module Linearly
     # {Contract} is a companion for the {Flow}, providing it with logic for
     # properly determining required +inputs+ and expected +outputs+.
     class Contract
+      extend Forwardable
+
+      # Inputs required for the {Flow}
+      #
+      # @return [Hash<Symbol, TrueClass>]
+      # @api private
+      attr_reader :inputs
+
+      # Outputs provided by the {Flow}
+      #
+      # @return [Hash<Symbol, TrueClass>]
+      # @api private
+      attr_reader :outputs
+
       # Constructor for the {Contract}
       #
       # @param steps [Array<Step>] array of things that implement the +Step+
@@ -81,25 +95,9 @@ module Linearly
       # @api private
       def initialize(steps)
         @steps = steps
-        @inputs = Set.new
-        @outputs = Set.new
+        @inputs = {}
+        @outputs = {}
         build
-      end
-
-      # Inputs required for the {Flow}
-      #
-      # @return [Hash<Symbol, TrueClass>]
-      # @api private
-      def inputs
-        @inputs.map { |key| [key, true] }.to_h
-      end
-
-      # Outputs provided for the {Flow}
-      #
-      # @return [Hash<Symbol, TrueClass>]
-      # @api private
-      def outputs
-        @outputs.map { |key| [key, true] }.to_h
       end
 
       private
@@ -109,11 +107,21 @@ module Linearly
       # @return [Array] irrelevant
       # @api private
       def build
-        @steps.each do |step|
-          @inputs += (Set.new(step.inputs.keys) - @outputs)
-          @outputs += step.outputs.keys
-        end
+        @steps.each(&method(:process))
         [@inputs, @outputs].map(&:freeze)
+      end
+
+      # Process a single step
+      #
+      # @param [Step]
+      #
+      # @return [Hash] irrelevant
+      # @api private
+      def process(step)
+        step.inputs.each do |key, val|
+          @inputs[key] = val unless @inputs.key?(key) || @outputs.key?(key)
+        end
+        @outputs.merge!(step.outputs)
       end
     end # class Contract
     private_constant :Contract
