@@ -12,6 +12,8 @@ module Linearly
     # rescue exceptions - the static {.call} method will catch those and fail
     # the +state+ accordingly.
     class Static
+      extend Mixins::FlowBuilder
+
       # Main entry point to {Step::Static}
       #
       # @param state [Statefully::State]
@@ -79,7 +81,7 @@ module Linearly
 
       # Constructor for the {Step::Static}
       #
-      # @param [Statefully::State]
+      # @param state [Statefully::State]
       # @api private
       def initialize(state)
         @state = state
@@ -106,7 +108,7 @@ module Linearly
       # This method reeks of :reek:BooleanParameter.
       #
       # @param name [Symbol|String]
-      # @param _include_private [Boolean]
+      # @param include_private [Boolean]
       #
       # @return [Boolean]
       # @api private

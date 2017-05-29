@@ -34,6 +34,10 @@ module Linearly
       it { expect(outputs.fetch(:new_key)).to eq Symbol }
     end # describe '#outputs'
 
+    describe '#>>' do
+      it { expect(flow.>>(step1)).to be_a Flow }
+    end # describe '#>>'
+
     describe '#call' do
       let(:state) { Statefully::State.create(**args) }
       let(:result) { flow.call(state) }

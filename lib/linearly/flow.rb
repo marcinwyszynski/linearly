@@ -56,6 +56,21 @@ module Linearly
       @contract = Contract.new(steps)
     end
 
+    # Convenience method to join +Step+s into one {Flow}
+    #
+    # @param other [Step]
+    #
+    # @return [Flow]
+    # @api public
+    # @example
+    #   flow =
+    #     Users::Find
+    #     .>> Users::Update
+    #     .>> Users::Save
+    def >>(other)
+      Flow.new(other, *@steps)
+    end
+
     private
 
     # Steps to be ran by the {Flow}
@@ -113,7 +128,7 @@ module Linearly
 
       # Process a single step
       #
-      # @param [Step]
+      # @param step [Step]
       #
       # @return [Hash] irrelevant
       # @api private
