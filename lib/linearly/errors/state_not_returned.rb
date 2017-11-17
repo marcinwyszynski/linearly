@@ -24,6 +24,6 @@ module Linearly
         super("#{value.class.name} is not a Statefully::State")
         @value = value
       end
-    end # class StateNotReturned
-  end # module Errors
-end # module Linearly
+    end
+  end
+end

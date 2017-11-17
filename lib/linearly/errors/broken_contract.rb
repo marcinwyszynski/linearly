@@ -61,7 +61,7 @@ module Linearly
         def copy
           'failed input expectations'
         end
-      end # class Inputs
+      end
 
       # {Outputs} means a {BrokenContract} on outputs.
       class Outputs < BrokenContract
@@ -74,7 +74,7 @@ module Linearly
         def copy
           'failed output expectations'
         end
-      end # class Outputs
-    end # class BrokenContract
-  end # module Errors
-end # module Linearly
+      end
+    end
+  end
+end

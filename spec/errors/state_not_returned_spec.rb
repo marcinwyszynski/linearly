@@ -8,6 +8,6 @@ module Linearly
 
       it { expect(error.message).to eq 'String is not a Statefully::State' }
       it { expect(error.value).to eq value }
-    end # describe StateNotReturned
-  end # module Errors
-end # module Linearly
+    end
+  end
+end

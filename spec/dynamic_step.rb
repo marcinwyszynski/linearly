@@ -10,6 +10,6 @@ module Linearly
       def outputs
         {}
       end
-    end # class Valid
-  end # class DynamicStep
-end # module Linearly
+    end
+  end
+end

@@ -1,11 +1,7 @@
 module Linearly
-  class StaticStep < Step::Static
+  class ImplicitStep < Step::Static
     def self.inputs
-      { number: Integer }
-    end
-
-    def self.outputs
-      { string: String }
+      {}
     end
 
     def call

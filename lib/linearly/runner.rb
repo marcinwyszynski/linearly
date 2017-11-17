@@ -33,6 +33,6 @@ module Linearly
         Validation::Outputs.new(step.outputs),
       ]
     end
-  end # class Runner
+  end
   private_constant :Runner
-end # module Linearly
+end

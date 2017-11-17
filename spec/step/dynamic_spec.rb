@@ -7,23 +7,23 @@ module Linearly
 
       describe '#inputs' do
         it { expect { step.inputs }.to raise_error NotImplementedError }
-      end # describe '#inputs'
+      end
 
       describe '#outputs' do
-        it { expect { step.outputs }.to raise_error NotImplementedError }
-      end # describe '#outputs'
+        it { expect(step.outputs).to eq({}) }
+      end
 
       describe '#call' do
         let(:state) { Statefully::State.create }
 
         it { expect { step.call(state) }.to raise_error NotImplementedError }
-      end # describe '#call'
+      end
 
       describe '#>>' do
         let(:step) { DynamicStep::Valid.new }
 
         it { expect(step.>>(step)).to be_a Flow }
-      end # describe '#>>'
-    end # describe Dynamic
-  end # module Step
-end # module Linearly
+      end
+    end
+  end
+end

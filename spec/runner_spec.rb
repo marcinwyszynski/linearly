@@ -13,35 +13,35 @@ module Linearly
       it { expect(result).to be_successful }
       it { expect(result).not_to be_finished }
       it { expect(result.key).to eq 'val' }
-    end # context 'when all goes well'
+    end
 
     shared_examples 'returns_error' do |error_class|
       it { expect(result).not_to be_successful }
       it { expect(result.error).to be_a error_class }
-    end # shared_examples 'returns_error'
+    end
 
     context 'when input validation fails' do
       let(:inputs) { { other: true } }
 
       it_behaves_like 'returns_error', Errors::BrokenContract::Inputs
-    end # context 'when input validation fails'
+    end
 
     context 'when step fails' do
       let(:behavior) { ->(state) { state.fail(RuntimeError.new('Boom!')) } }
 
       it_behaves_like 'returns_error', RuntimeError
-    end # context 'when step fails'
+    end
 
     context 'when step finishes' do
       let(:behavior) { ->(state) { state.finish } }
 
       it { expect(result).to be_finished }
-    end # context 'when step finishes'
+    end
 
     context 'when output validation fails' do
       let(:outputs) { { other: true } }
 
       it_behaves_like 'returns_error', Errors::BrokenContract::Outputs
-    end # context 'when output validation fails'
-  end # describe Runner
-end # module Linearly
+    end
+  end
+end
