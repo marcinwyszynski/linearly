@@ -25,18 +25,18 @@ module Linearly
       it { expect(inputs.length).to eq 2 }
       it { expect(inputs.fetch(:key)).to eq String }
       it { expect(inputs.fetch(:other)).to eq Numeric }
-    end # describe '#inputs'
+    end
 
     describe '#outputs' do
       let(:outputs) { flow.outputs }
 
       it { expect(outputs.length).to eq 1 }
       it { expect(outputs.fetch(:new_key)).to eq Symbol }
-    end # describe '#outputs'
+    end
 
     describe '#>>' do
       it { expect(flow.>>(step1)).to be_a Flow }
-    end # describe '#>>'
+    end
 
     describe '#call' do
       let(:state) { Statefully::State.create(**args) }
@@ -53,15 +53,15 @@ module Linearly
 
           it { expect(result).not_to be_successful }
           it { expect(result.error).to be_a RuntimeError }
-        end # context 'with a throwing step'
+        end
 
         context 'with a step not returning State' do
           let(:step1_proc) { ->(_) { 'surprise!' } }
 
           it { expect(result).not_to be_successful }
           it { expect(result.error).to be_a Errors::StateNotReturned }
-        end # context 'with a step not returning State'
-      end # context 'with correct input'
+        end
+      end
 
       context 'with missing initial state' do
         let(:args) { { key: 'val' } }
@@ -69,7 +69,7 @@ module Linearly
         it { expect(result).to be_failed }
         it { expect(result.error).to be_a Errors::BrokenContract::Inputs }
         it { expect(result.history.length).to eq 2 }
-      end # context 'with missing initial state'
-    end # describe '#call'
-  end # describe Flow
-end # module Linearly
+      end
+    end
+  end
+end

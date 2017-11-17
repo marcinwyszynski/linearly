@@ -25,12 +25,6 @@ steps:
     commands:
       - bundle exec rspec
 
-  closing_comments:
-    <<: *test_step
-    title: 'Check for closing comments'
-    commands:
-      - bundle exec closing_comments
-
   yardstick:
     <<: *test_step
     title: 'Check for documentation completeness'

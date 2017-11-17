@@ -28,7 +28,7 @@ module Linearly
       #   FindUser.new.outputs
       #   => { user: User }
       def outputs
-        raise NotImplementedError
+        {}
       end
 
       # User-defined logic for this +Step+
@@ -45,6 +45,6 @@ module Linearly
       def call(_state)
         raise NotImplementedError
       end
-    end # module Dynamic
-  end # module Step
-end # module Linearly
+    end
+  end
+end

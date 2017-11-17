@@ -16,7 +16,7 @@ module Linearly
       def >>(other)
         Flow.new(self, other)
       end
-    end # module FlowBuilder
-  end # module Mixins
+    end
+  end
   private_constant :Mixins
-end # module Linearly
+end

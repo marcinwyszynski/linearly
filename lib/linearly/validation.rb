@@ -51,7 +51,7 @@ module Linearly
       def error_class
         Errors::BrokenContract::Inputs
       end
-    end # class Inputs
+    end
 
     # {Inputs} is a post-flight {Validation} of {State} outputs
     class Outputs < Validation
@@ -64,7 +64,7 @@ module Linearly
       def error_class
         Errors::BrokenContract::Outputs
       end
-    end # class Outputs
+    end
 
     # {Validator} is a stateful helper applying expecations to a {State}
     class Validator
@@ -118,7 +118,7 @@ module Linearly
           .map    { |key| [key, Failure::Missing.instance] }
           .to_h
       end
-    end # class Validator
+    end
     private_constant :Validator
 
     # {Failure} is a representation of a problem encountered when validating a
@@ -149,7 +149,7 @@ module Linearly
         def missing?
           true
         end
-      end # class Missing
+      end
 
       # {Unexpected} is a type of {Failure} when a field exists, but its value
       # does not match expectations.
@@ -164,8 +164,8 @@ module Linearly
         def missing?
           false
         end
-      end # class Unexpected
-    end # class Failure
+      end
+    end
 
     # {Expectation} is a helper module to turn various types of expectations
     # into {Proc}s.
@@ -185,6 +185,6 @@ module Linearly
         expectation
       end
       module_function :to_proc
-    end # module Expectation
-  end # class Validation
-end # module Linearly
+    end
+  end
+end

@@ -8,7 +8,7 @@ module Linearly
     shared_examples 'validation_fails' do |error_class|
       it { expect(validation).to be_failed }
       it { expect(validation.error).to be_a error_class }
-    end # shared_examples 'validation_fails'
+    end
 
     shared_examples 'fails_when_missing_field' do |error_class|
       let(:field) { :other }
@@ -22,8 +22,8 @@ module Linearly
 
         it { expect(validation.error.failures).to have_key(field) }
         it { expect(validation.error.failures.fetch(field)).to be_missing }
-      end # context 'with failures'
-    end # shared_examples 'fails_when_missing_field'
+      end
+    end
 
     shared_examples 'fails_with_unexpected_value' do |error_class|
       it_behaves_like 'validation_fails', error_class
@@ -35,13 +35,13 @@ module Linearly
 
         it { expect(validation.error.failures).to have_key(field) }
         it { expect(validation.error.failures.fetch(field)).not_to be_missing }
-      end # context 'with failures'
-    end # shared_examples 'fails_with_unexpected_value'
+      end
+    end
 
     shared_examples 'succeeds_and_returns_state' do
       it { expect(validation).to be_successful }
       it { expect(validation).to eq state }
-    end # shared_examples 'succeeds_and_returns_state'
+    end
 
     shared_examples 'supports_presence_expectation' do |error_class|
       let(:field)        { :key }
@@ -49,7 +49,7 @@ module Linearly
 
       it_behaves_like 'fails_when_missing_field', error_class
       it_behaves_like 'succeeds_and_returns_state'
-    end # shared_examples 'supports_presence_expectation'
+    end
 
     shared_examples 'supports_class_expectation' do |error_class|
       let(:field)        { :key }
@@ -60,14 +60,14 @@ module Linearly
 
       context 'when expectation is met (default)' do
         it_behaves_like 'succeeds_and_returns_state'
-      end # context 'when expectation is met (default)'
+      end
 
       context 'when expectation is not met' do
         let(:klass) { Numeric }
 
         it_behaves_like 'fails_with_unexpected_value', error_class
-      end # context 'when expectation is not met'
-    end # shared_examples 'supports_class_expectation'
+      end
+    end
 
     shared_examples 'supports_proc_expectation' do |error_class|
       let(:field)        { :key }
@@ -79,14 +79,14 @@ module Linearly
 
       context 'when expectation is met (default)' do
         it_behaves_like 'succeeds_and_returns_state'
-      end # context 'when expectation is met (default)'
+      end
 
       context 'when expectation is not met' do
         let(:expectation) { ->(val) { val.length == 4 } }
 
         it_behaves_like 'fails_with_unexpected_value', error_class
-      end # context 'when expectation is not met'
-    end # shared_examples 'supports_proc_expectation'
+      end
+    end
 
     describe Validation::Inputs do
       error = Errors::BrokenContract::Inputs
@@ -94,7 +94,7 @@ module Linearly
       it_behaves_like 'supports_presence_expectation', error
       it_behaves_like 'supports_class_expectation', error
       it_behaves_like 'supports_proc_expectation', error
-    end # describe Validation::Inputs
+    end
 
     describe Validation::Outputs do
       error = Errors::BrokenContract::Outputs
@@ -102,6 +102,6 @@ module Linearly
       it_behaves_like 'supports_presence_expectation', error
       it_behaves_like 'supports_class_expectation', error
       it_behaves_like 'supports_proc_expectation', error
-    end # describe Validation::Outputs
-  end # describe Validation
-end # module Linearly
+    end
+  end
+end

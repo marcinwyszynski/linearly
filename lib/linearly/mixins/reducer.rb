@@ -26,7 +26,7 @@ module Linearly
           current.fail(Errors::StateNotReturned.new(step))
         end
       end
-    end # module Reducer
-  end # module Mixins
+    end
+  end
   private_constant :Mixins
-end # module Linearly
+end

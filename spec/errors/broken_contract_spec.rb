@@ -16,14 +16,14 @@ module Linearly
 
         it { expect(error.message).to eq message }
         it { expect(error.failures).to eq failures }
-      end # describe BrokenContract::Inputs
+      end
 
       describe BrokenContract::Outputs do
         let(:message) { 'failed output expectations: [missing, unexpected]' }
 
         it { expect(error.message).to eq message }
         it { expect(error.failures).to eq failures }
-      end # describe BrokenContract::Outputs
-    end # describe BrokenContract
-  end # module Errors
-end # module Linearly
+      end
+    end
+  end
+end

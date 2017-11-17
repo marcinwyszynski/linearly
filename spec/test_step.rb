@@ -12,5 +12,5 @@ module Linearly
       @outputs = outputs
       @behavior = behavior
     end
-  end # class TestStep
-end # module Linearly
+  end
+end

@@ -138,7 +138,7 @@ module Linearly
         end
         @outputs.merge!(step.outputs)
       end
-    end # class Contract
+    end
     private_constant :Contract
-  end # class Flow
-end # module Linearly
+  end
+end

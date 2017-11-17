@@ -33,7 +33,7 @@ module Linearly
       #     def call
       #       succeed(user: User.find(user_id))
       #     end
-      #   end # class FindUser
+      #   end
       #   FindUser.call(Statefully::State.create(user_id: params[:id]))
       def self.call(state)
         new(state).call
@@ -68,7 +68,7 @@ module Linearly
       #   FindUser.outputs
       #   => { user: User }
       def self.outputs
-        raise NotImplementedError
+        {}
       end
 
       private
@@ -88,7 +88,7 @@ module Linearly
       end
       private_class_method :new
 
-      # Dynamically pass unknown messages to the wrapped +State+
+      # Dynamically pass valid inputs to the wrapped +State+
       #
       # @param name [Symbol|String]
       # @param args [Array<Object>]
@@ -98,9 +98,8 @@ module Linearly
       # @raise [NoMethodError]
       # @api private
       def method_missing(name, *args, &block)
-        state.send(name, *args, &block)
-      rescue NoMethodError
-        super
+        allowed = (state.methods + self.class.inputs.keys).include?(name)
+        allowed ? state.send(name, *args, &block) : super
       end
 
       # Companion to `method_missing`
@@ -115,6 +114,6 @@ module Linearly
       def respond_to_missing?(name, include_private = false)
         state.send(:respond_to_missing?, name, include_private)
       end
-    end # class Static
-  end # module Step
-end # module Linearly
+    end
+  end
+end

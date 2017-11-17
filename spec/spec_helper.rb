@@ -14,5 +14,6 @@ end
 require 'linearly'
 
 require 'dynamic_step'
+require 'implicit_step'
 require 'static_step'
 require 'test_step'
