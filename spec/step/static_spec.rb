@@ -37,7 +37,7 @@ module Linearly
           let(:args) { { number: 7 } }
 
           it { expect(result).to be_successful }
-          it { expect(result.string).to eq '8' }
+          it { expect(result.string).to start_with '8' }
         end
 
         context 'with incorrect input' do

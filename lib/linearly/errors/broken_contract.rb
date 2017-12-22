@@ -78,3 +78,4 @@ module Linearly
     end
   end
 end
+# rubocop:enable Metrics/LineLength
