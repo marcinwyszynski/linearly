@@ -9,7 +9,7 @@ module Linearly
     end
 
     def call
-      succeed(string: (number + 1).to_s)
+      succeed(string: (number + 1).to_s + correlation_id)
     end
   end
 end

@@ -98,8 +98,8 @@ module Linearly
       # @raise [NoMethodError]
       # @api private
       def method_missing(name, *args, &block)
-        allowed = (state.methods + self.class.inputs.keys).include?(name)
-        allowed ? state.send(name, *args, &block) : super
+        allowed = [:correlation_id] + state.methods + self.class.inputs.keys
+        allowed.include?(name) ? state.send(name, *args, &block) : super
       end
 
       # Companion to `method_missing`
