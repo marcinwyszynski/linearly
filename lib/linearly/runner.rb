@@ -3,7 +3,7 @@ module Linearly
   # validates the inputs, runs the step, and validates the outputs.
   # @api private
   class Runner
-    include Mixins::Reducer
+    include Mixins::StepCollection
 
     # Constructor for the {Runner} object
     # @param step [Step] anything that implements the +Step+ interface

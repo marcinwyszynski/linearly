@@ -3,7 +3,7 @@ require 'forwardable'
 module Linearly
   class Flow
     extend Forwardable
-    include Mixins::Reducer
+    include Mixins::StepCollection
 
     # @!method call(state)
     #   Validate the input state and run steps as long as it's a +Success+

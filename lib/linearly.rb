@@ -1,5 +1,5 @@
 require 'linearly/mixins/flow_builder'
-require 'linearly/mixins/reducer'
+require 'linearly/mixins/step_collection'
 require 'linearly/errors/broken_contract'
 require 'linearly/errors/state_not_returned'
 require 'linearly/flow'

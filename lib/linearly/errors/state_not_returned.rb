@@ -9,20 +9,37 @@ module Linearly
       # @return [Object]
       # @api public
       # @example
-      #   Linearly::Errors::StateNotReturned.new('surprise').value
+      #   Linearly::Errors::StateNotReturned
+      #     .new(output: 'surprise', step: 'step')
+      #     .output
       #   => "surprise"
-      attr_reader :value
+      attr_reader :output
+
+      # Name of the step that caused the error
+      #
+      # @return String
+      # @api public
+      # @example
+      #   Linearly::Errors::StateNotReturned
+      #     .new(output: 'surprise', step: 'step')
+      #     .step
+      #   => "step"
+      attr_reader :step
 
       # Constructor for the {StateNotReturned} class
       #
-      # @param value [Object]
+      # @param output: [Object]
+      # @param step: [String]
       #
       # @api public
       # @example
-      #   Linearly::Errors::StateNotReturned.new('surprise')
-      def initialize(value)
-        super("#{value.class.name} is not a Statefully::State")
-        @value = value
+      #   Linearly::Errors::StateNotReturned
+      #     .new(output: 'surprise', step: 'step')
+      def initialize(output:, step:)
+        str = output.inspect
+        super("#{str}, returned from #{step}, is not a Statefully::State")
+        @output = output
+        @step = step
       end
     end
   end
