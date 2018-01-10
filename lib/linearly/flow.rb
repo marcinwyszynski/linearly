@@ -79,9 +79,9 @@ module Linearly
     # @api private
     def steps
       [
-        Validation::Inputs.new(inputs),
+        Validation::Inputs.new(self, inputs),
         *@steps.map(&Runner.method(:new)),
-        Validation::Outputs.new(outputs),
+        Validation::Outputs.new(self, outputs),
       ]
     end
 

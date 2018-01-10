@@ -36,18 +36,31 @@ module Linearly
 
       # Constructor for a {BrokenContract} error
       #
+      # @param source [Object]
       # @param failures [Hash<Symbol, Validation::Failure>]
       #
       # @api public
       # @example
       #   Linearly::Errors::BrokenContract::Inputs.new(
+      #     Steps::HelloWorld,
       #     key: Linearly::Validation::Failure::Missing.instance,
       #   )
       #   => #<Linearly::Errors::BrokenContract::Inputs:
-      #        failed input expectations: [key]>
-      def initialize(failures)
+      #        failed input expectations on Steps::HelloWorld: [key]>
+      def initialize(source, failures)
+        @source = source
         @failures = failures
-        super("#{copy}: [#{keys.join(', ')}]")
+        super("#{copy} on #{source_string}: [#{keys.join(', ')}]")
+      end
+
+      private
+
+      # Stringify the source to put it in the error message
+      #
+      # @return [String]
+      # @api private
+      def source_string
+        @source.is_a?(Class) ? @source.name : @source.class.name
       end
 
       # {Inputs} means a {BrokenContract} on inputs.

@@ -7,13 +7,16 @@ module Linearly
   class Validation
     # Constructor for a {Validation}
     #
+    # @param source [Object] source of the validation, to be passed to errors
+    #        for better messaging.
     # @param expectations [Hash<Symbol, Expectation>] a hash of per-field
     #        expectations. An expectation can be +true+ (just checking for field
     #        presence), a class name (checking for value type) or a +Proc+
     #        taking a value and returning a +Boolean+.
     #
     # @api private
-    def initialize(expectations)
+    def initialize(source, expectations)
+      @source = source
       @expectations =
         expectations
         .map { |key, expectation| [key, Expectation.to_proc(expectation)] }
@@ -28,7 +31,7 @@ module Linearly
     # @api private
     def call(state)
       Validator
-        .new(expectations, state)
+        .new(@source, expectations, state)
         .validate(error_class)
     end
 
@@ -70,11 +73,14 @@ module Linearly
     class Validator
       # Constructor method for a {Validator}
       #
+      # @param source [Object] source of the validation, to be passed to errors
+      #        for better messaging.
       # @param expectations [Hash<Symbol, Expectation>]
       # @param state [Statefully::State]
       #
       # @api private
-      def initialize(expectations, state)
+      def initialize(source, expectations, state)
+        @source = source
         @expectations = expectations
         @state = state
       end
@@ -88,7 +94,7 @@ module Linearly
       def validate(error_class)
         failures = invalid.merge(missing).freeze
         return @state if failures.empty?
-        @state.fail(error_class.new(failures))
+        @state.fail(error_class.new(@source, failures))
       end
 
       private
