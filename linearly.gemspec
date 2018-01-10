@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.files      = Dir['lib/**/*.rb'] + Dir['spec/**/*.rb']
   spec.test_files = spec.files.grep(/^spec/)
 
-  spec.add_runtime_dependency 'statefully', '>= 0.1.7'
+  spec.add_runtime_dependency 'statefully', '>= 0.1.8'
 
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'codecov'

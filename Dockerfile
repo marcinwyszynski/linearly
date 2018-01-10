@@ -1,11 +1,6 @@
-FROM ruby:2.4.1
+FROM ruby:2.5.0-alpine
+RUN apk add --no-cache git
 
-ARG TEST_HOME=/linearly
-ADD Gemfile *.gemspec $TEST_HOME/
-RUN mkdir -p $TEST_HOME/lib/linearly
-ADD lib/linearly/version.rb $TEST_HOME/lib/linearly/
-WORKDIR $TEST_HOME
-
+ADD . /linearly
+WORKDIR /linearly
 RUN bundle install --jobs 8 --retry 5
-
-ADD . $TEST_HOME
