@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module Linearly
   describe Validation do
-    let(:validation) { described_class.new(expectations).call(state) }
+    let(:validation) { described_class.new('string', expectations).call(state) }
     let(:state)      { Statefully::State.create(key: 'val') }
 
     shared_examples 'validation_fails' do |error_class|

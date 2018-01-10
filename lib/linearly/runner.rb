@@ -28,9 +28,9 @@ module Linearly
     # @api private
     def steps
       [
-        Validation::Inputs.new(step.inputs),
+        Validation::Inputs.new(step, step.inputs),
         step,
-        Validation::Outputs.new(step.outputs),
+        Validation::Outputs.new(step, step.outputs),
       ]
     end
   end

@@ -9,17 +9,21 @@ module Linearly
           unexpected: Validation::Failure::Unexpected.instance,
         }
       end
-      let(:error) { described_class.new(failures) }
+      let(:error) { described_class.new('string', failures) }
 
       describe BrokenContract::Inputs do
-        let(:message) { 'failed input expectations: [missing, unexpected]' }
+        let(:message) do
+          'failed input expectations on String: [missing, unexpected]'
+        end
 
         it { expect(error.message).to eq message }
         it { expect(error.failures).to eq failures }
       end
 
       describe BrokenContract::Outputs do
-        let(:message) { 'failed output expectations: [missing, unexpected]' }
+        let(:message) do
+          'failed output expectations on String: [missing, unexpected]'
+        end
 
         it { expect(error.message).to eq message }
         it { expect(error.failures).to eq failures }
